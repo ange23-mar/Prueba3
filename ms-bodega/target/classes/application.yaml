@@ -6,6 +6,7 @@ server:
 spring:
   application:
     name: ms-bodega
+    
   datasource:
     url: jdbc:oracle:thin:@mmg8hvewk688yrh4_low?TNS_ADMIN=C:/Users/Usuario/Desktop/prueba3FullStrack/Wallet
     username: SCHEMA_BODEGA
