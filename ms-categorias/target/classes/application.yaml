@@ -6,18 +6,13 @@ spring:
   application:
     name: ms-categorias
 
-datasource:
-  url: jdbc:oracle:thin:@mmg8hvewk688yrh4_low?TNS_ADMIN=C:/Users/Usuario/Desktop/prueba3FullStrack/ms-proveedores/src/main/resources/Wallet
-  username: SCHEMA_CATEGORIAS
-  password: FullStack-Bodega1
-  driver-class-name: oracle.jdbc.OracleDriver
+  datasource:
+    # 1. Agregamos la ruta dinámica que sirve tanto para tu PC local como para Render (Linux)
+    url: jdbc:oracle:thin:@mmg8hvewk688yrh4_high?TNS_ADMIN=${TNS_ADMIN_PATH:/app/src/main/resources/Wallet_MMG8HVEWK688YRH4}
+    username: SCHEMA_CATEGORIAS
+    password: FullStack-Bodega1
+    driver-class-name: oracle.jdbc.OracleDriver
 
-  #datasource:
-   #url: jdbc:mysql://host.docker.internal:3306/db_ms_categorias
-   #username: root
-   #password: ""
-   #driver-class-name: com.mysql.cj.jdbc.Driver
-   
   jpa:
     hibernate:
       ddl-auto: update
@@ -25,12 +20,13 @@ datasource:
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.MySQLDialect
+        dialect: org.hibernate.dialect.OracleDialect
 
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-server:8761/eureka/
+      # 2. Agregamos una variable para Eureka por si en Render necesitas apuntar a su URL interna en vez de la fija
+      defaultZone: ${EUREKA_URL:http://eureka-server:8761/eureka/}
   instance:
     prefer-ip-address: true
 
