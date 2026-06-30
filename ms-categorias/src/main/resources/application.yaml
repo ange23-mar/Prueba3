@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: ${PORT:8081}
   address: 0.0.0.0
 
 spring:
@@ -7,25 +7,23 @@ spring:
     name: ms-categorias
 
   datasource:
-    # 1. Agregamos la ruta dinámica que sirve tanto para tu PC local como para Render (Linux)
-    url: jdbc:oracle:thin:@mmg8hvewk688yrh4_high?TNS_ADMIN=${TNS_ADMIN_PATH:/app/src/main/resources/Wallet_MMG8HVEWK688YRH4}
-    username: SCHEMA_CATEGORIAS
-    password: FullStack-Bodega1
-    driver-class-name: oracle.jdbc.OracleDriver
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
 
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.OracleDialect
 
 eureka:
   client:
     service-url:
-      # 2. Agregamos una variable para Eureka por si en Render necesitas apuntar a su URL interna en vez de la fija
       defaultZone: ${EUREKA_URL:http://eureka-server:8761/eureka/}
   instance:
     prefer-ip-address: true
@@ -39,5 +37,5 @@ springdoc:
 
     ##http://localhost:8081/api/categoria con el controller 1
 ##http://localhost:8087/categorias2 con el controller 2
-##http://localhost:8087/swagger-ui/index.html con swagger para probar el controller 1
+##http://localhost:8081/swagger-ui/index.html con swagger para probar el controller 1
 ##http://localhost:8087/categorias/1 con el controller 
